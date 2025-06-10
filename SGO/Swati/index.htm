@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Grid Optimizer Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="bg-gray-100 text-gray-800 p-4">
+  <h1 class="text-3xl font-bold mb-4 text-center">Smart Grid Optimizer Dashboard</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+    <!-- Voltage Chart -->
+    <div class="bg-white shadow rounded-lg p-4">
+      <h2 class="text-xl font-semibold mb-2">Voltage</h2>
+      <canvas id="voltageChart"></canvas>
+    </div>
+
+    <!-- Energy Consumption History -->
+    <div class="bg-white shadow rounded-lg p-4">
+      <h2 class="text-xl font-semibold mb-2">Energy Consumption History</h2>
+      <canvas id="energyHistoryChart"></canvas>
+    </div>
+
+    <!-- Meter Info Table -->
+    <div class="bg-white shadow rounded-lg p-4 overflow-auto">
+      <h2 class="text-xl font-semibold mb-2">Energy Meters</h2>
+      <table class="table-auto w-full text-left">
+        <thead>
+          <tr>
+            <th class="border px-2 py-1">Name</th>
+            <th class="border px-2 py-1">Location</th>
+            <th class="border px-2 py-1">Voltage (V)</th>
+            <th class="border px-2 py-1">Amperage (A)</th>
+            <th class="border px-2 py-1">Power (W)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="border px-2 py-1">Smart Meter A</td>
+            <td class="border px-2 py-1">1st Floor</td>
+            <td class="border px-2 py-1">235.0</td>
+            <td class="border px-2 py-1">5.64</td>
+            <td class="border px-2 py-1">1326.4</td>
+          </tr>
+          <tr>
+            <td class="border px-2 py-1">Smart Meter B</td>
+            <td class="border px-2 py-1">2nd Floor</td>
+            <td class="border px-2 py-1">202.33</td>
+            <td class="border px-2 py-1">9.49</td>
+            <td class="border px-2 py-1">1920.11</td>
+          </tr>
+          <tr>
+            <td class="border px-2 py-1">Smart Meter C</td>
+            <td class="border px-2 py-1">3rd Floor</td>
+            <td class="border px-2 py-1">210.65</td>
+            <td class="border px-2 py-1">7.37</td>
+            <td class="border px-2 py-1">1552.49</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Energy Distribution Pie -->
+    <div class="bg-white shadow rounded-lg p-4">
+      <h2 class="text-xl font-semibold mb-2">Energy Distribution</h2>
+      <canvas id="energyPieChart"></canvas>
+    </div>
+
+    <!-- Amperage Chart -->
+    <div class="bg-white shadow rounded-lg p-4">
+      <h2 class="text-xl font-semibold mb-2">Amperage</h2>
+      <canvas id="amperageChart"></canvas>
+    </div>
+
+    <!-- Alarms Section -->
+    <div class="bg-white shadow rounded-lg p-4">
+      <h2 class="text-xl font-semibold mb-2">Alarms</h2>
+      <p class="text-green-600">No alarms found.</p>
+    </div>
+  </div>
+
+  <script>
+    // Voltage Chart
+    new Chart(document.getElementById('voltageChart'), {
+      type: 'line',
+      data: {
+        labels: ["20:56", "20:57", "20:58", "20:59", "21:00"],
+        datasets: [
+          { label: 'Smart Meter A', data: [234, 235, 236, 233, 235], borderColor: 'red', fill: false },
+          { label: 'Smart Meter B', data: [210, 205, 200, 198, 202], borderColor: 'green', fill: false },
+          { label: 'Smart Meter C', data: [220, 215, 218, 219, 221], borderColor: 'blue', fill: false },
+        ]
+      }
+    });
+
+    // Energy History Chart
+    new Chart(document.getElementById('energyHistoryChart'), {
+      type: 'bar',
+      data: {
+        labels: ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00"],
+        datasets: [
+          { label: 'Smart Meter A', data: [0.12, 0.18, 0.16, 0.14, 0.10, 0.11], backgroundColor: 'red' },
+          { label: 'Smart Meter B', data: [0.10, 0.13, 0.15, 0.12, 0.11, 0.13], backgroundColor: 'green' },
+          { label: 'Smart Meter C', data: [0.09, 0.10, 0.11, 0.13, 0.14, 0.12], backgroundColor: 'blue' },
+        ]
+      }
+    });
+
+    // Energy Pie Chart
+    new Chart(document.getElementById('energyPieChart'), {
+      type: 'pie',
+      data: {
+        labels: ['Smart Meter A', 'Smart Meter B', 'Smart Meter C'],
+        datasets: [{
+          data: [34, 35, 31],
+          backgroundColor: ['red', 'green', 'blue']
+        }]
+      }
+    });
+
+    // Amperage Chart
+    new Chart(document.getElementById('amperageChart'), {
+      type: 'line',
+      data: {
+        labels: ["20:56", "20:57", "20:58", "20:59", "21:00"],
+        datasets: [
+          { label: 'Smart Meter A', data: [5.2, 5.5, 5.6, 5.3, 5.64], borderColor: 'red', fill: false },
+          { label: 'Smart Meter B', data: [9.1, 9.3, 9.4, 9.5, 9.49], borderColor: 'green', fill: false },
+          { label: 'Smart Meter C', data: [6.0, 6.2, 6.1, 6.0, 7.37], borderColor: 'blue', fill: false },
+        ]
+      }
+    });
+  </script>
+</body>
+
+</html>
