@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Grid Dashboard</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header>
+    <div class="controls-bar">
+      <label class="switch">
+        <input type="checkbox" id="darkToggle" onchange="toggleDarkMode()">
+        <span class="slider round"></span>
+      </label>
+      <span>🌙 Dark Mode</span>
+    </div>
+  </header>
+
+  <main class="dashboard-container">
+    <!-- Left Column: Energy Meters -->
+    <section class="card energy-card">
+      <h2>Energy Meters</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr><th>Name</th><th>Location</th><th>Voltage (V)</th><th>Amperage (A)</th><th>Power (W)</th></tr>
+          </thead>
+          <tbody id="meterData"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Right Column -->
+    <div class="right-columns">
+      <!-- Voltage and Amperage Row -->
+      <div class="row">
+        <section class="card voltage-card">
+          <h2>Voltage Monitoring</h2>
+          <div id="voltageChartContainer" class="chart-container"></div>
+          <div class="carousel-controls">
+            <button onclick="showVoltageSlide(-1)">⟨</button>
+            <button onclick="showVoltageSlide(1)">⟩</button>
+          </div>
+        </section>
+
+        <section class="card amperage-card">
+          <h2>Amperage Monitoring</h2>
+          <div id="amperageChartContainer" class="chart-container"></div>
+          <div class="carousel-controls">
+            <button onclick="showAmperageSlide(-1)">⟨</button>
+            <button onclick="showAmperageSlide(1)">⟩</button>
+          </div>
+        </section>
+      </div>
+
+      <!-- Alarms and Pie Chart Row -->
+      <div class="row">
+        <section class="card alarm-card">
+          <h2>Alarms</h2>
+          <ul id="alarmList"></ul>
+        </section>
+
+        <section class="card pie-chart-card">
+          <h2>Energy Consumption by Province</h2>
+          <div class="carousel-container">
+            <canvas class="pie-slide" id="pie1"></canvas>
+            <canvas class="pie-slide" id="pie2" style="display:none;"></canvas>
+            <canvas class="pie-slide" id="pie3" style="display:none;"></canvas>
+            <canvas class="pie-slide" id="pie4" style="display:none;"></canvas>
+          </div>
+          <div class="carousel-controls">
+            <button onclick="showSlide(-1)">⟨</button>
+            <button onclick="showSlide(1)">⟩</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer-stats">
+    <h2>Live Grid Stats</h2>
+    <div class="stats-container">
+      <div class="stat-box">
+        <h3>Total Energy (W)</h3>
+        <div id="totalEnergy" class="stat-number">0</div>
+      </div>
+      <div class="stat-box">
+        <h3>Peak Voltage (V)</h3>
+        <div id="peakVoltage" class="stat-number">0</div>
+      </div>
+      <div class="stat-box">
+        <h3>Peak Amperage (A)</h3>
+        <div id="peakAmperage" class="stat-number">0</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
